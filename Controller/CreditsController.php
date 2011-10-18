@@ -26,9 +26,9 @@ class CreditsController extends AppController {
 	}
 
 	function add() {
-		if (!empty($this->data)) {
+		if (!empty($this->request->data)) {
 			$this->Credit->create();
-			if ($this->Credit->add($this->data)) {
+			if ($this->Credit->add($this->request->data)) {
 				$this->Session->setFlash(__('The credit has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -43,20 +43,20 @@ class CreditsController extends AppController {
 	}
 
 	function edit($id = null) {
-		if (!$id && empty($this->data)) {
+		if (!$id && empty($this->request->data)) {
 			$this->Session->setFlash(__('Invalid credit', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		if (!empty($this->data)) {
-			if ($this->Credit->save($this->data)) {
+		if (!empty($this->request->data)) {
+			if ($this->Credit->save($this->request->data)) {
 				$this->Session->setFlash(__('The credit has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The credit could not be saved. Please, try again.', true));
 			}
 		}
-		if (empty($this->data)) {
-			$this->data = $this->Credit->read(null, $id);
+		if (empty($this->request->data)) {
+			$this->request->data = $this->Credit->read(null, $id);
 		}
 		$creditTypes = $this->Credit->CreditType->find('list', array('conditions' => array('CreditType.type' => 'CREDIT_TYPE')));
 		$users = $this->Credit->User->find('list');
