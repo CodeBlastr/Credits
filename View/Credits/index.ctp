@@ -5,7 +5,7 @@
 			<th><?php echo $this->Paginator->sort('credit_type_id');?></th>
 			<th><?php echo $this->Paginator->sort('amount');?></th>
 			<th><?php echo $this->Paginator->sort('value');?></th>
-			<th class="actions"><?php __('Actions');?></th>
+			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
 	$i = 0;

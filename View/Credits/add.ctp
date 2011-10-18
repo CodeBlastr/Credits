@@ -1,7 +1,7 @@
 <div class="credits form">
 <?php echo $this->Form->create('Credit');?>
 	<fieldset>
- 		<legend><?php __('Add Credit'); ?></legend>
+ 		<legend><?php echo __('Add Credit'); ?></legend>
 	<?php
 		echo $this->Form->input('credit_type_id');
 		echo $this->Form->input('user_id');
@@ -12,7 +12,7 @@
 <?php echo $this->Form->end(__('Submit', true));?>
 </div>
 <div class="actions">
-	<h3><?php __('Actions'); ?></h3>
+	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
 		<li><?php echo $this->Html->link(__('List Credits', true), array('action' => 'index'));?></li>

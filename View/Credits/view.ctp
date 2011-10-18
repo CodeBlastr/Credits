@@ -1,27 +1,27 @@
 <div class="credits view">
 <h2><?php  __('Credit');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Id'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $credit['Credit']['id']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Credit Type'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Credit Type'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $this->Html->link($credit['CreditType']['name'], array('controller' => 'enumerations', 'action' => 'view', $credit['CreditType']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('User'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('User'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $this->Html->link($credit['User']['username'], array('controller' => 'users', 'action' => 'view', $credit['User']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Amount'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Amount'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $credit['Credit']['amount']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Value'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Value'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $credit['Credit']['value']; ?>
 			&nbsp;
@@ -29,7 +29,7 @@
 	</dl>
 </div>
 <div class="actions">
-	<h3><?php __('Actions'); ?></h3>
+	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Edit Credit', true), array('action' => 'edit', $credit['Credit']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Delete Credit', true), array('action' => 'delete', $credit['Credit']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $credit['Credit']['id'])); ?> </li>
