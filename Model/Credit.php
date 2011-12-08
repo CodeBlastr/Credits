@@ -74,10 +74,15 @@ class Credit extends AppModel {
 	public function changeUserCredits($data) {
 		$creditData = $this->User->find('first' , array(
 			'conditions' => array('User.id' => $data['Credit']['user_id'])));
-		$data['User']['credit_total'] = $creditData['User']['credit_total'] + $data['Credit']['quantity'] ; 
-		if($this->User->save($data)) : 
+		$creditData['User']['credit_total'] = $creditData['User']['credit_total'] + $data['Credit']['quantity']; 
+		$creditData['User']['id'] = !empty($data['User']['id']) ? $data['User']['id'] : $data['Credit']['user_id'];
+		
+		if($this->User->save($creditData)) : 
 			return true;
 		else :
+			debug($this->User->invalidFields());
+			break;
+			
 			return false;
 		endif;
 	}
