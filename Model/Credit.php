@@ -67,19 +67,35 @@ class Credit extends AppModel {
 		}
 	}
 
-	/*
-	 * 
-	 * 
-	 */
-	function changeUserCredits($data) {
-
-		$creditData = $this->User->find('first' , array('conditions' => 
-											array('User.id' => $data['Credit']['user_id']))) ;
+/**
+ * 
+ * 
+ */
+	public function changeUserCredits($data) {
+		$creditData = $this->User->find('first' , array(
+			'conditions' => array('User.id' => $data['Credit']['user_id'])));
 		$data['User']['credit_total'] = $creditData['User']['credit_total'] + $data['Credit']['quantity'] ; 
-		if($this->User->save($data))
-			return true ;
-		else 
-			return false ;
+		if($this->User->save($data)) : 
+			return true;
+		else :
+			return false;
+		endif;
+	}
+	
+
+
+/**
+ * Checkes the incoming user for whether they have any credits available
+ * 
+ * @return {int}		Returns the number of credits that would be left greater than or equal to, else false.
+ */
+	public function checkCredits($userId = null, $amount = 1) {
+		$creditTotal = $this->User->field('credit_total', array('User.id' => $userId));
+		if (($creditTotal - $amount) >= 0) :
+			return $creditTotal;
+		else : 
+			return false;
+		endif;
 	}
 }
-?>s
+?>
