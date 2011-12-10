@@ -80,9 +80,6 @@ class Credit extends AppModel {
 		if($this->User->save($creditData)) : 
 			return true;
 		else :
-			debug($this->User->invalidFields());
-			break;
-			
 			return false;
 		endif;
 	}
