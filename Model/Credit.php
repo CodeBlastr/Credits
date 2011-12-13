@@ -72,6 +72,8 @@ class Credit extends AppModel {
  * 
  */
 	public function changeUserCredits($data) {
+		# needs $data['Credit']['user_id'] in data array
+		# needs $data['Credit']['quantity'] in data array (can be negative or positive number to credit total by)
 		$creditData = $this->User->find('first' , array(
 			'conditions' => array('User.id' => $data['Credit']['user_id'])));
 		$creditData['User']['credit_total'] = $creditData['User']['credit_total'] + $data['Credit']['quantity']; 
