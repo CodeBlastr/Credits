@@ -1,7 +1,8 @@
 <?php
 class CreditsController extends AppController {
 
-	var $name = 'Credits';
+	public $name = 'Credits';
+	public $allowedActions = array('count');
 
 	function index() {
 		$this->Credit->recursive = 0;
@@ -76,6 +77,10 @@ class CreditsController extends AppController {
 		}
 		$this->Session->setFlash(__('Credit was not deleted', true));
 		$this->redirect(array('action' => 'index'));
+	}
+	
+	function count($userId) {
+		return $this->Credit->User->field('credit_total', array('User.id' => $userId));
 	}
 }
 ?>
