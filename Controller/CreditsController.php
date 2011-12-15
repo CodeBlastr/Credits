@@ -2,6 +2,7 @@
 class CreditsController extends AppController {
 
 	public $name = 'Credits';
+	public $uses = 'Credits.Credit';
 	public $allowedActions = array('count');
 
 	function index() {
