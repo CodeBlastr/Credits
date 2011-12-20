@@ -75,10 +75,14 @@ class Credit extends AppModel {
 		# needs $data['Credit']['user_id'] in data array
 		# needs $data['Credit']['quantity'] in data array (can be negative or positive number to credit total by)
 		$creditData = $this->User->find('first' , array(
+			'nocheck' => true, 
+			'fields' => array('User.credit_total', 'User.user_role_id'), 
 			'conditions' => array('User.id' => $data['Credit']['user_id'])));
 		$creditData['User']['credit_total'] = $creditData['User']['credit_total'] + $data['Credit']['quantity']; 
 		$creditData['User']['id'] = !empty($data['User']['id']) ? $data['User']['id'] : $data['Credit']['user_id'];
 		
+		
+		$this->User->validate = false;		
 		if($this->User->save($creditData)) : 
 			return true;
 		else :
