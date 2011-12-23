@@ -11,13 +11,17 @@
 	</fieldset>
 <?php echo $this->Form->end(__('Submit', true));?>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Credits', true), array('action' => 'index'));?></li>
-		<li><?php echo $this->Html->link(__('List Enumerations', true), array('controller' => 'enumerations', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Credit Type', true), array('controller' => 'enumerations', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users', true), array('plugin' => null, 'controller' => 'users', 'action' => 'index')); ?> </li>
-	</ul>
-</div>
+<?php 
+// set the contextual menu items
+$this->set('context_menu', array('menus' => array(
+	array(
+		'heading' => 'Credits',
+		'items' => array(
+			$this->Html->link(__('List Credits', true), array('action' => 'index')),
+			$this->Html->link(__('List Enumerations', true), array('controller' => 'enumerations', 'action' => 'index')),
+			$this->Html->link(__('New Credit Type', true), array('controller' => 'enumerations', 'action' => 'add')),
+			$this->Html->link(__('List Users', true), array('plugin' => null, 'controller' => 'users', 'action' => 'index')),
+			)
+		),
+	)));
+?>
