@@ -34,4 +34,4 @@
  	$count = (!empty($sessionUserId) ? $this->requestAction('/credits/credits/count/'.$sessionUserId) : null);
 ?>
 
-<span class="currentUserCreditCount"><?php echo $count; ?></span>
+<span class="currentUserCreditCount"> <?php echo !empty($count) ? $count : 0; ?> </span>
