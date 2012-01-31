@@ -9,7 +9,7 @@ class CreditsController extends AppController {
 		$this->Credit->recursive = 0;
 		$this->set('credits', $this->paginate());
 	}
-	
+
 	function my() {
 		$this->settings['conditions']['Credit.user_id'] = $this->Session->read('Auth.User.id');
 		$this->paginate = $this->settings;
@@ -37,7 +37,7 @@ class CreditsController extends AppController {
 				$this->Session->setFlash(__('The credit could not be saved. Please, try again.', true));
 			}
 		}
-		$creditTypes = $this->Credit->CreditType->find('list', array('conditions' => array('CreditType.type' => 'CREDIT_TYPE')));
+		$creditTypes = $this->Credit->creditTypes();
 		$users = $this->Credit->User->find('list');
 		$creators = $this->Credit->Creator->find('list');
 		$modifiers = $this->Credit->Modifier->find('list');
@@ -60,7 +60,7 @@ class CreditsController extends AppController {
 		if (empty($this->request->data)) {
 			$this->request->data = $this->Credit->read(null, $id);
 		}
-		$creditTypes = $this->Credit->CreditType->find('list', array('conditions' => array('CreditType.type' => 'CREDIT_TYPE')));
+		$creditTypes = $this->Credit->creditTypes();
 		$users = $this->Credit->User->find('list');
 		$creators = $this->Credit->Creator->find('list');
 		$modifiers = $this->Credit->Modifier->find('list');
@@ -79,7 +79,7 @@ class CreditsController extends AppController {
 		$this->Session->setFlash(__('Credit was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
-	
+
 	function count($userId) {
 		return $this->Credit->User->field('credit_total', array('User.id' => $userId));
 	}
