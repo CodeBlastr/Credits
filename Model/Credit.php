@@ -74,8 +74,6 @@ class Credit extends AppModel {
 			'conditions' => array('User.id' => $userId)));
 		$creditData['User']['credit_total'] = $creditData['User']['credit_total'] + $data['Credit']['quantity'];
 		$creditData['User']['id'] = !empty($data['User']['id']) ? $data['User']['id'] : $data['Credit']['user_id'];
-
-
 		$this->User->validate = false;
 		if($this->User->save($creditData)) :
 			return true;
