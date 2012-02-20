@@ -16,13 +16,6 @@ class Credit extends AppModel {
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 	var $belongsTo = array(
-		'CreditType' => array(
-			'className' => 'Enumeration',
-			'foreignKey' => 'credit_type_id',
-			'conditions' => array('CreditType.type' => 'CREDIT_TYPE'),
-			'fields' => '',
-			'order' => ''
-		),
 		'User' => array(
 			'className' => 'Users.User',
 			'foreignKey' => 'user_id',
@@ -45,8 +38,8 @@ class Credit extends AppModel {
 			'order' => ''
 		)
 	);
-	
-	
+
+
 	function add($data) {
 		if (empty($data['Credit']['user_id']) && isset($data['Credit']['email'])) {
 			$userCredit = $this->User->find('first' , array(
@@ -57,7 +50,7 @@ class Credit extends AppModel {
 							'conditions' => array('User.id' => $data['Credit']['user_id'])
 			));
 		}
-		$userCredit['User']['credit_total'] +=  $data['Credit']['value'];		
+		$userCredit['User']['credit_total'] +=  $data['Credit']['value'];
 
 		// we should not mess with other stuff, hence save only
 		if ($this->User->save($userCredit, false)) {
@@ -68,43 +61,52 @@ class Credit extends AppModel {
 	}
 
 /**
- * 
- * 
+ *
+ *
  */
 	public function changeUserCredits($data) {
 		# needs $data['Credit']['user_id'] in data array
 		# needs $data['Credit']['quantity'] in data array (can be negative or positive number to credit total by)
 		$userId = !empty($data['Credit']['user_id']) ? $data['Credit']['user_id'] : $data['User']['id'];
 		$creditData = $this->User->find('first' , array(
-			'nocheck' => true, 
-			'fields' => array('User.credit_total', 'User.user_role_id'), 
+			'nocheck' => true,
+			'fields' => array('User.credit_total', 'User.user_role_id'),
 			'conditions' => array('User.id' => $userId)));
-		$creditData['User']['credit_total'] = $creditData['User']['credit_total'] + $data['Credit']['quantity']; 
+		$creditData['User']['credit_total'] = $creditData['User']['credit_total'] + $data['Credit']['quantity'];
 		$creditData['User']['id'] = !empty($data['User']['id']) ? $data['User']['id'] : $data['Credit']['user_id'];
-		
-		
-		$this->User->validate = false;		
-		if($this->User->save($creditData)) : 
+		$this->User->validate = false;
+		if($this->User->save($creditData)) :
 			return true;
 		else :
 			return false;
 		endif;
 	}
-	
+
 
 
 /**
  * Checkes the incoming user for whether they have any credits available
- * 
+ *
  * @return {int}		Returns the number of credits that would be left greater than or equal to, else false.
  */
 	public function checkCredits($userId = null, $amount = 1) {
 		$creditTotal = $this->User->field('credit_total', array('User.id' => $userId));
 		if (($creditTotal - $amount) >= 0) :
 			return $creditTotal;
-		else : 
+		else :
 			return false;
 		endif;
 	}
+
+
+	public function creditTypes() {
+		$creditTypes = array();
+		foreach(Zuha::enum('CREDIT_TYPE') as $creditType) {
+			$creditTypes[Inflector::underscore($creditType)] = $creditType;
+		}
+		#return array_merge(array('incart' => 'In Cart', 'paid' => 'Paid', 'shipped' => 'Shipped'), $creditTypes);
+		return $creditTypes;
+	}
+
 }
 ?>
