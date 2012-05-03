@@ -39,9 +39,7 @@ class CreditsController extends AppController {
 		}
 		$creditTypes = $this->Credit->creditTypes();
 		$users = $this->Credit->User->find('list');
-		$creators = $this->Credit->Creator->find('list');
-		$modifiers = $this->Credit->Modifier->find('list');
-		$this->set(compact('creditTypes', 'users', 'creators', 'modifiers'));
+		$this->set(compact('creditTypes', 'users'));
 	}
 
 	function edit($id = null) {
@@ -62,9 +60,7 @@ class CreditsController extends AppController {
 		}
 		$creditTypes = $this->Credit->creditTypes();
 		$users = $this->Credit->User->find('list');
-		$creators = $this->Credit->Creator->find('list');
-		$modifiers = $this->Credit->Modifier->find('list');
-		$this->set(compact('creditTypes', 'users', 'creators', 'modifiers'));
+		$this->set(compact('creditTypes', 'users'));
 	}
 
 	function delete($id = null) {
@@ -76,7 +72,7 @@ class CreditsController extends AppController {
 			$this->Session->setFlash(__('Credit deleted', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		$this->Session->setFlash(__('Credit was not deleted', true));
+		$this->Session->setFlash(__('Credit was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
 

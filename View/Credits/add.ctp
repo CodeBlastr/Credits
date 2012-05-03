@@ -3,7 +3,7 @@
 	<fieldset>
  		<legend><?php echo __('Add Credit'); ?></legend>
 	<?php
-		echo $this->Form->input('credit_type_id');
+		echo $this->Form->input('credit_type');
 		echo $this->Form->input('user_id');
 		echo $this->Form->input('amount');
 		echo $this->Form->input('value');

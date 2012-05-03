@@ -2,7 +2,7 @@
 	<h2><?php  echo $this->Html->link($this->Session->read('Auth.User.username'), array('plugin' => 'users', 'controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));  __('Credits');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('credit_type_id');?></th>
+			<th><?php echo $this->Paginator->sort('credit_type');?></th>
 			<th><?php echo $this->Paginator->sort('amount');?></th>
 			<th><?php echo $this->Paginator->sort('value');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>

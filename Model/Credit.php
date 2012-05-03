@@ -22,20 +22,6 @@ class Credit extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		),
-		'Creator' => array(
-			'className' => 'Users.User',
-			'foreignKey' => 'creator_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'Modifier' => array(
-			'className' => 'Users.User',
-			'foreignKey' => 'modifier_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
 		)
 	);
 
@@ -43,11 +29,13 @@ class Credit extends AppModel {
 	function add($data) {
 		if (empty($data['Credit']['user_id']) && isset($data['Credit']['email'])) {
 			$userCredit = $this->User->find('first' , array(
-							'conditions' => array('User.email' => $data['Credit']['email'])
-			));
+				'conditions' => array(
+					'User.email' => $data['Credit']['email']
+					)
+				));
 		} else {
 			$userCredit = $this->User->find('first' , array(
-							'conditions' => array('User.id' => $data['Credit']['user_id'])
+				'conditions' => array('User.id' => $data['Credit']['user_id'])
 			));
 		}
 		$userCredit['User']['credit_total'] +=  $data['Credit']['value'];
@@ -75,11 +63,11 @@ class Credit extends AppModel {
 		$creditData['User']['credit_total'] = $creditData['User']['credit_total'] + $data['Credit']['quantity'];
 		$creditData['User']['id'] = !empty($data['User']['id']) ? $data['User']['id'] : $data['Credit']['user_id'];
 		$this->User->validate = false;
-		if($this->User->save($creditData)) :
+		if($this->User->save($creditData)) {
 			return true;
-		else :
+		} else {
 			return false;
-		endif;
+		}
 	}
 
 
@@ -91,11 +79,11 @@ class Credit extends AppModel {
  */
 	public function checkCredits($userId = null, $amount = 1) {
 		$creditTotal = $this->User->field('credit_total', array('User.id' => $userId));
-		if (($creditTotal - $amount) >= 0) :
+		if (($creditTotal - $amount) >= 0) {
 			return $creditTotal;
-		else :
+		} else {
 			return false;
-		endif;
+		}
 	}
 
 
@@ -104,7 +92,7 @@ class Credit extends AppModel {
 		foreach(Zuha::enum('CREDIT_TYPE') as $creditType) {
 			$creditTypes[Inflector::underscore($creditType)] = $creditType;
 		}
-		#return array_merge(array('incart' => 'In Cart', 'paid' => 'Paid', 'shipped' => 'Shipped'), $creditTypes);
+		// return array_merge(array('incart' => 'In Cart', 'paid' => 'Paid', 'shipped' => 'Shipped'), $creditTypes);
 		return $creditTypes;
 	}
 

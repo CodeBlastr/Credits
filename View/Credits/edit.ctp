@@ -4,7 +4,7 @@
  		<legend><?php echo __('Edit Credit'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('credit_type_id');
+		echo $this->Form->input('credit_type');
 		echo $this->Form->input('user_id');
 		echo $this->Form->input('amount');
 		echo $this->Form->input('value');
