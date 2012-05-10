@@ -1,7 +1,9 @@
 <?php
+App::uses('AppModel', 'Model'); 
+
 class Credit extends AppModel {
-	var $name = 'Credit';
-	var $validate = array(
+	public $name = 'Credit';
+	public $validate = array(
 		'user_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
@@ -15,7 +17,7 @@ class Credit extends AppModel {
 	);
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
-	var $belongsTo = array(
+	public $belongsTo = array(
 		'User' => array(
 			'className' => 'Users.User',
 			'foreignKey' => 'user_id',
@@ -26,7 +28,7 @@ class Credit extends AppModel {
 	);
 
 
-	function add($data) {
+	public function add($data) {
 		if (empty($data['Credit']['user_id']) && isset($data['Credit']['email'])) {
 			$userCredit = $this->User->find('first' , array(
 				'conditions' => array(
@@ -97,4 +99,3 @@ class Credit extends AppModel {
 	}
 
 }
-?>
