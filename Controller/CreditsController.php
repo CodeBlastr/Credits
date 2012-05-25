@@ -1,16 +1,17 @@
 <?php
-class CreditsController extends AppController {
+App::uses('CreditsAppController', 'Credits.Controller');
+class CreditsController extends CreditsAppController {
 
 	public $name = 'Credits';
 	public $uses = 'Credits.Credit';
 	public $allowedActions = array('count');
 
-	function index() {
+	public function index() {
 		$this->Credit->recursive = 0;
 		$this->set('credits', $this->paginate());
 	}
 
-	function my() {
+	public function my() {
 		$this->settings['conditions']['Credit.user_id'] = $this->Session->read('Auth.User.id');
 		$this->paginate = $this->settings;
 		$this->Credit->recursive = 0;
@@ -18,7 +19,7 @@ class CreditsController extends AppController {
 		$this->render('index');
 	}
 
-	function view($id = null) {
+	public function view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid credit', true));
 			$this->redirect(array('action' => 'index'));
@@ -27,7 +28,7 @@ class CreditsController extends AppController {
 		$this->set('credit', $this->Credit->read(null, $id));
 	}
 
-	function add() {
+	public function add() {
 		if (!empty($this->request->data)) {
 			$this->Credit->create();
 			if ($this->Credit->add($this->request->data)) {
@@ -42,7 +43,7 @@ class CreditsController extends AppController {
 		$this->set(compact('creditTypes', 'users'));
 	}
 
-	function edit($id = null) {
+	public function edit($id = null) {
 		if (!$id && empty($this->request->data)) {
 			$this->Session->setFlash(__('Invalid credit', true));
 			$this->redirect(array('action' => 'index'));
@@ -63,7 +64,7 @@ class CreditsController extends AppController {
 		$this->set(compact('creditTypes', 'users'));
 	}
 
-	function delete($id = null) {
+	public function delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for credit', true));
 			$this->redirect(array('action'=>'index'));
@@ -76,7 +77,7 @@ class CreditsController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
 
-	function count($userId) {
+	public function count($userId) {
 		return $this->Credit->User->field('credit_total', array('User.id' => $userId));
 	}
 }

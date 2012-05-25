@@ -1,7 +1,7 @@
 <?php
-App::uses('AppModel', 'Model'); 
+#App::uses('AppModel', 'Model');
 
-class Credit extends AppModel {
+class Credit extends CreditsAppModel {
 	public $name = 'Credit';
 	public $validate = array(
 		'user_id' => array(
