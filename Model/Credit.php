@@ -1,5 +1,5 @@
 <?php
-#App::uses('AppModel', 'Model');
+App::uses('CreditsAppModel', 'Credits.Model');
 
 class Credit extends CreditsAppModel {
 	public $name = 'Credit';
@@ -32,16 +32,21 @@ class Credit extends CreditsAppModel {
 		if (empty($data['Credit']['user_id']) && isset($data['Credit']['email'])) {
 			$userCredit = $this->User->find('first' , array(
 				'conditions' => array(
-					'User.email' => $data['Credit']['email']
-					)
+					'User.email' => $data['Credit']['email'],
+					),
+                'fields' => array('User.credit_total'),
 				));
 		} else {
 			$userCredit = $this->User->find('first' , array(
-				'conditions' => array('User.id' => $data['Credit']['user_id'])
+				'conditions' => array('User.id' => $data['Credit']['user_id']),
+                'fields' => array('User.credit_total'),
 			));
 		}
+//debug($userCredit['User']['credit_total']);
 		$userCredit['User']['credit_total'] +=  $data['Credit']['value'];
-
+//debug($data['Credit']['value']);
+//debug($userCredit['User']['credit_total']);
+          break;
 		// we should not mess with other stuff, hence save only
 		if ($this->User->save($userCredit, false)) {
 			return true;
