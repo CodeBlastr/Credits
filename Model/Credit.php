@@ -32,14 +32,20 @@ class Credit extends CreditsAppModel {
 		if (empty($data['Credit']['user_id']) && isset($data['Credit']['email'])) {
 			$userCredit = $this->User->find('first' , array(
 				'conditions' => array(
-					'User.email' => $data['Credit']['email'],
-					),
-                'fields' => array('User.credit_total'),
-				));
+                    'User.email' => $data['Credit']['email'],
+                ),
+                'fields' => array(
+                    'User.user_id',
+                    'User.credit_total'
+                ),
+			));
 		} else {
 			$userCredit = $this->User->find('first' , array(
 				'conditions' => array('User.id' => $data['Credit']['user_id']),
-                'fields' => array('User.credit_total'),
+                'fields' => array(
+                    'User.user_id',
+                    'User.credit_total'
+                ),
 			));
 		}
 //debug($userCredit['User']['credit_total']);
