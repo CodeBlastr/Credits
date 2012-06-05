@@ -46,7 +46,7 @@ class Credit extends CreditsAppModel {
 		$userCredit['User']['credit_total'] +=  $data['Credit']['value'];
 //debug($data['Credit']['value']);
 //debug($userCredit['User']['credit_total']);
-          break;
+          //break;
 		// we should not mess with other stuff, hence save only
 		if ($this->User->save($userCredit, false)) {
 			return true;
