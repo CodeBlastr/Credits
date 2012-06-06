@@ -35,7 +35,7 @@ class Credit extends CreditsAppModel {
                     'User.email' => $data['Credit']['email'],
                 ),
                 'fields' => array(
-                    'User.user_id',
+                    'User.id',
                     'User.credit_total'
                 ),
 			));
@@ -43,7 +43,7 @@ class Credit extends CreditsAppModel {
 			$userCredit = $this->User->find('first' , array(
 				'conditions' => array('User.id' => $data['Credit']['user_id']),
                 'fields' => array(
-                    'User.user_id',
+                    'User.id',
                     'User.credit_total'
                 ),
 			));
