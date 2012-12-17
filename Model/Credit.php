@@ -105,7 +105,6 @@ class Credit extends CreditsAppModel {
 		foreach(Zuha::enum('CREDIT_TYPE') as $creditType) {
 			$creditTypes[Inflector::underscore($creditType)] = $creditType;
 		}
-		// return array_merge(array('incart' => 'In Cart', 'paid' => 'Paid', 'shipped' => 'Shipped'), $creditTypes);
 		return $creditTypes;
 	}
 
