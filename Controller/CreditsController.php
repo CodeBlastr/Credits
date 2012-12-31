@@ -66,11 +66,11 @@ class CreditsController extends CreditsAppController {
 
 	public function delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for credit', true));
+			$this->Session->setFlash(__('Invalid id for credit'));
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Credit->delete($id)) {
-			$this->Session->setFlash(__('Credit deleted', true));
+			$this->Session->setFlash(__('Credit deleted'));
 			$this->redirect(array('action'=>'index'));
 		}
 		$this->Session->setFlash(__('Credit was not deleted'));
@@ -81,4 +81,3 @@ class CreditsController extends CreditsAppController {
 		return $this->Credit->User->field('credit_total', array('User.id' => $userId));
 	}
 }
-?>
