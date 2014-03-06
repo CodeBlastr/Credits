@@ -1,6 +1,6 @@
 <?php
 App::uses('CreditsAppController', 'Credits.Controller');
-class CreditsController extends CreditsAppController {
+class AppCreditsController extends CreditsAppController {
 
 	public $name = 'Credits';
 	public $uses = 'Credits.Credit';
@@ -80,4 +80,10 @@ class CreditsController extends CreditsAppController {
 	public function count($userId) {
 		return $this->Credit->User->field('credit_total', array('User.id' => $userId));
 	}
+}
+
+if (!isset($refuseInit)) {
+
+    class CreditsController extends AppCreditsController {
+    }
 }
