@@ -108,4 +108,46 @@ class Credit extends CreditsAppModel {
 		return $creditTypes;
 	}
 
+/**
+ * Map Transaction Item method
+ * 
+ * This trims an object, formats it's values if you need to, and returns the data to be merged with the Transaction data.
+ * 
+ * @param string $key
+ * @return array The necessary fields to add a Transaction Item
+	public function mapTransactionItem($key) {
+	    $itemData = $this->find('first', array('conditions' => array('id' => $key)));
+	    $fieldsToCopyDirectly = array(
+    		'name'
+	        );
+	    foreach($itemData['UserRole'] as $k => $v) {
+    		if(in_array($k, $fieldsToCopyDirectly)) {
+    		    $return['TransactionItem'][$k] = $v;
+    		}
+	    }
+	    return $return;
+	}
+ */
+
+/**
+ * After Successful Payment method
+ * 
+ * @param array $data A payment object
+ */
+	public function afterSuccessfulPayment($data) {
+		foreach ($data['TransactionItem'] as $transactionItem) {
+			if ($transactionItem['model'] == 'Credit') {
+				$quantity = $this->field('amount', array('id' => $transactionItem['foreign_key']));
+				$this->changeUserCredits(array(
+					'User' => array(
+						'id' => $data['Customer']['id']
+						),
+					'Credit' => array(
+						'quantity' => $quantity
+						)
+					));
+			}
+		}
+	}
+
 }
