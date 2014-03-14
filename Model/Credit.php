@@ -1,7 +1,7 @@
 <?php
 App::uses('CreditsAppModel', 'Credits.Model');
 
-class Credit extends CreditsAppModel {
+class AppCredit extends CreditsAppModel {
 	public $name = 'Credit';
 	public $validate = array(
 		'user_id' => array(
@@ -150,4 +150,8 @@ class Credit extends CreditsAppModel {
 		}
 	}
 
+}
+
+if ( !isset($refuseInit) ) {
+    class Credit extends AppCredit {}
 }
