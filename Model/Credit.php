@@ -23,7 +23,10 @@ class AppCredits extends CreditsAppModel {
 	);
 
 /**
- * @param type $data
+ * Updates User.credit_total by adding Credit.value to it.
+ * Looks up the User with either Credit.user_id or Credit.email.
+ *
+ * @param array $data
  * @return boolean
  */
 	public function add($data) {
@@ -58,6 +61,9 @@ class AppCredits extends CreditsAppModel {
 	}
 
 /**
+ * Updates User.credit_total by adding Credit.quantity to it..
+ * Looks up the User with either Credit.user_id or User.id.
+ *
  * @param array $data
  * 				['Credit']['user_id']
  * 				['User']['id']
