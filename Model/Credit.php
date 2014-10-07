@@ -141,6 +141,8 @@ class AppCredits extends CreditsAppModel {
 		foreach ($data['TransactionItem'] as $transactionItem) {
 			if ($transactionItem['model'] == 'Credit') {
 				$quantity = $this->field('amount', array('id' => $transactionItem['foreign_key']));
+				// accomodate for multiple qty of transactionItem
+				$quantity = $quantity * $transactionItem['quantity'];
 				$this->changeUserCredits(array(
 					'User' => array(
 						'id' => $data['Customer']['id']
